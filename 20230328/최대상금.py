@@ -1,30 +1,19 @@
 t = int(input())
 for tc in range(1, t+1):
-    num, c = list(map(int, input().split()))
+    num, c = map(int, input().split())
     num = str(num)
-    len_num = len(num)
-    num = list(num)
-    lst = [0] * len_num
-    ans = []
-    for i in range(len(num)):
-        for j in range(i):
-            if num[i] > num[j]:
-                lst[i] += 1
-    min_lst = min(lst)
-    max_lst = max(lst)
-    for i in range(c):
-        num[max_lst], num[min_lst] = num[min_lst], num[max_lst]
-        for i in range(min_lst+1):
-            temp = num.pop(0)
-            ans.append(temp)
-        lst = [0] * len_num
-        for i in range(len(num)):
-            for j in range(i):
-                if num[i] > num[j]:
-                    lst[i] += 1
-        min_lst = min(lst)
-        max_lst = max(lst)
-    print(f"#{tc}",''.join(ans + num))
+    num_set = set([num])
+    ans = set()
 
-
-
+    for _ in range(c):
+        while num_set:
+            n = num_set.pop()
+            n = list(n)
+            for i in range(len(num)-1):
+                for j in range(i+1, len(num)):
+                    n[i], n[j] = n[j], n[i]
+                    ans.add(''.join(n))
+                    n[i], n[j] = n[j], n[i]
+        num_set,ans = ans,num_set
+    ans = max(map(int,num_set))
+    print(f'#{tc} {ans}')
