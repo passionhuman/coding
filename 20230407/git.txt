@@ -1,0 +1,9 @@
+git 되돌리기
+working directory에서는
+-git restore
+
+staging area에서
+-git restore --staged
+
+respository에서
+-git commit --amend
